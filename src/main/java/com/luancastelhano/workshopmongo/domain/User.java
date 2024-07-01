@@ -2,9 +2,14 @@ package com.luancastelhano.workshopmongo.domain;
 
 import java.io.Serializable;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 // Serializable é um padrão do java que permite os objetos serem convertidos em bytes para trafegarem em rede ou serem gravados em arquivos
+@Document(collection = "user")   // Annotation para identificar esta classe como correspondente á uma coleção do mongoDB
 public class User implements Serializable{
     
+    @Id
     private String id;
     private String name;
     private String email;
