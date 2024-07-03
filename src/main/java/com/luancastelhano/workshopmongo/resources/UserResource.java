@@ -51,4 +51,12 @@ public class UserResource {
         return ResponseEntity.created(uri).build();
         // created retorna o código 201 do HTTP, código de resposta quando se é criado um novo recurso
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Void> insert(@RequestBody UserDTO objDto, @PathVariable String id){
+        User obj = service.fromDTO(objDto);
+        obj.setId(id);
+        obj = service.update(obj);
+        return ResponseEntity.noContent().build();
+    }
 }
