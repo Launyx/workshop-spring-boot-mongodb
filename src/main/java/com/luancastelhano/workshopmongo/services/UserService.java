@@ -1,6 +1,7 @@
 package com.luancastelhano.workshopmongo.services;
 
 import com.luancastelhano.workshopmongo.domain.User;
+import com.luancastelhano.workshopmongo.dto.UserDTO;
 import com.luancastelhano.workshopmongo.repository.UserRepository;
 
 import com.luancastelhano.workshopmongo.services.exception.ObjectNotFoundException;
@@ -25,5 +26,13 @@ public class UserService {
         // Retorna o objeto(usuário) com o id providenciado, caso tal não exista, é lançada a exceção customizada
         return obj.orElseThrow(() -> new ObjectNotFoundException("Object not found"));
 
+    }
+
+    public User insert(User obj){
+        return repo.insert(obj);
+    }
+
+    public User fromDTO(UserDTO objDto){
+        return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
     }
 }
