@@ -6,6 +6,7 @@ import com.luancastelhano.workshopmongo.services.exception.ObjectNotFoundExcepti
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,5 +20,9 @@ public class PostService {
         // Retorna o objeto(usuário) com o id providenciado, caso tal não exista, é lançada a exceção customizada
         return obj.orElseThrow(() -> new ObjectNotFoundException("Post not found"));
 
+    }
+
+    public List<Post> findByTitle(String text){
+        return repo.findByTitleContainingIgnoreCase(text);
     }
 }
