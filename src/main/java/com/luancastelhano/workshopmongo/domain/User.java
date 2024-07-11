@@ -1,8 +1,11 @@
 package com.luancastelhano.workshopmongo.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 // Serializable é um padrão do java que permite os objetos serem convertidos em bytes para trafegarem em rede ou serem gravados em arquivos
@@ -13,6 +16,11 @@ public class User implements Serializable{
     private String id;
     private String name;
     private String email;
+
+    // DBRef -> Annotation para indicar que um atributo está referenciando outra coleção do mongoDB
+    // lazy -> garante que os posts só serão carregados se explícitamente forem acessados
+    @DBRef(lazy = true)
+    private List<Post> posts = new ArrayList<>();
 
     public User(){
 
@@ -48,6 +56,14 @@ public class User implements Serializable{
         this.email = email;
     }
 
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -72,6 +88,4 @@ public class User implements Serializable{
             return false;
         return true;
     }
-
-    
 }
